@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhishek Karode | Full Stack Developer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Plus Jakarta Sans', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                50: '#eef2ff',
+                100: '#e0e7ff',
+                200: '#c7d2fe',
+                300: '#a5b4fc',
+                400: '#818cf8',
+                500: '#6366f1',
+                600: '#4f46e5',
+                700: '#4338ca',
+                800: '#3730a3',
+                900: '#312e81',
+                950: '#1e1b4b',
+              },
+              dark: {
+                800: '#1e293b',
+                900: '#0f172a',
+                950: '#020617',
+              }
+            },
+            animation: {
+              'blob': 'blob 7s infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #020617; /* dark-950 */
+        color: #e2e8f0; /* slate-200 */
+      }
+      
+      /* Glassmorphism utility */
+      .glass {
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
+      }
+
+      /* Scroll Animation Classes */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body class="antialiased selection:bg-primary-500 selection:text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="flex items-center justify-between h-12">
+          <!-- Logo -->
+          <a href="#" class="font-display font-bold text-2xl">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-200">
+              Abhishek Karode<span class="text-primary-500">.</span>
+            </span>
+          </a>
+
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#about" class="text-slate-300 hover:text-white text-sm font-medium transition-colors">About</a>
+            <a href="#projects" class="text-slate-300 hover:text-white text-sm font-medium transition-colors">Projects</a>
+            <a href="#experience" class="text-slate-300 hover:text-white text-sm font-medium transition-colors">Experience</a>
+            <a href="#contact" class="text-slate-300 hover:text-white text-sm font-medium transition-colors">Contact</a>
+            <a href="#contact" class="bg-primary-600 hover:bg-primary-500 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary-500/20">
+              Hire Me
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu" class="hidden md:hidden bg-dark-900 border-b border-white/5 absolute top-full left-0 w-full p-4 space-y-4 shadow-xl">
+        <a href="#about" class="block text-slate-300 hover:text-white text-base font-medium">About</a>
+        <a href="#projects" class="block text-slate-300 hover:text-white text-base font-medium">Projects</a>
+        <a href="#experience" class="block text-slate-300 hover:text-white text-base font-medium">Experience</a>
+        <a href="#contact" class="block text-slate-300 hover:text-white text-base font-medium">Contact</a>
+        <a href="#contact" class="block text-center bg-primary-600 text-white px-4 py-3 rounded-lg text-base font-medium">Hire Me</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <!-- Animated Backgrounds -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary-600/20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-purple-600/20 rounded-full mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 2s"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-indigo-600/20 rounded-full mix-blend-screen filter blur-3xl animate-blob" style="animation-delay: 4s"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Text -->
+        <div class="reveal active">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span class="text-slate-300 text-sm font-medium">Available for new projects</span>
+          </div>
+          
+          <h1 class="text-5xl lg:text-7xl font-display font-bold leading-tight mb-6">
+            Full Stack Developer <br />
+            
+          </h1>
+          
+          <p className="text-lg text-slate-400 mb-8 max-w-lg leading-relaxed">
+ I’m Abhishek Karode, a final-semester student passionate about building real-world web applications and AI-powered products using modern technologies.          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="https://github.com/abhikarode221" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary-600 hover:bg-primary-500 text-white font-medium transition-all shadow-lg shadow-primary-500/25 hover:-translate-y-0.5">
+              View Projects
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="https://drive.google.com/file/d/1I-WgHnAYxBn7bycLXsIAbQ6gaLvhWDRB/view?usp=sharing" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 font-medium transition-all backdrop-blur-sm hover:-translate-y-0.5">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Download CV
+            </a>
+          </div>
+        </div>
+
+        <!-- Illustration -->
+        <div class="relative flex justify-center lg:justify-end reveal" style="transition-delay: 0.2s">
+          <div class="relative w-80 h-[400px] bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-6 flex flex-col gap-4 transform rotate-[-6deg] hover:rotate-0 transition-transform duration-500 animate-float">
+             <!-- Fake UI -->
+             <div class="flex items-center gap-3 border-b border-white/5 pb-4">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-purple-600"></div>
+                <div>
+                    <div class="h-2 w-24 bg-slate-700 rounded mb-1"></div>
+                    <div class="h-2 w-16 bg-slate-800 rounded"></div>
+                </div>
+             </div>
+             <div class="space-y-3">
+                 <div class="h-2 w-full bg-slate-800 rounded"></div>
+                 <div class="h-2 w-5/6 bg-slate-800 rounded"></div>
+                 <div class="h-2 w-4/6 bg-slate-800 rounded"></div>
+             </div>
+             <div class="mt-auto p-4 bg-black/40 rounded-lg border border-white/5">
+                 <div class="flex gap-1 mb-2">
+                     <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                     <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                     <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                 </div>
+                 <div class="space-y-1">
+                    <div class="h-1.5 w-full bg-slate-700 rounded opacity-50"></div>
+                    <div class="h-1.5 w-2/3 bg-primary-500/50 rounded"></div>
+                 </div>
+             </div>
+             
+             <!-- Floating Badge 1 -->
+             <div class="absolute -top-6 -right-6 bg-dark-800/90 backdrop-blur border border-white/10 p-3 rounded-xl shadow-xl animate-bounce" style="animation-duration: 3s">
+                <span class="text-2xl">🚀</span>
+             </div>
+             <!-- Floating Badge 2 -->
+             <div class="absolute -bottom-6 -left-6 bg-dark-800/90 backdrop-blur border border-white/10 p-4 rounded-xl shadow-xl animate-bounce" style="animation-duration: 4s">
+                <span class="text-primary-400 font-bold font-mono text-sm">&lt;Code /&gt;</span>
+             </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+        <span class="text-xs text-slate-500 uppercase tracking-widest">Scroll</span>
+        <div class="w-[1px] h-12 bg-gradient-to-b from-primary-500 to-transparent"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-dark-900 relative">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+          <div class="reveal">
+            <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">
+             About me
+            </h2>
+            <div class="space-y-4 text-slate-400 text-lg leading-relaxed">
+              <p>
+ I am a Full Stack Developer with strong foundations in HTML, CSS, JavaScript, React & Python. I enjoy building scalable web apps and exploring AI integrations.              </p>
+              <p>
+  Currently working on major academic and personal projects, focusing on clean UI, efficient backend logic, and real-world usability.              </p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 reveal" style="transition-delay: 0.2s">
+            <!-- Skill Items -->
+            <div class="bg-dark-800/50 border border-white/5 p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-primary-500/30 transition-all group">
+               <div class="p-3 bg-white/5 rounded-lg text-slate-300 group-hover:text-primary-400 group-hover:bg-primary-500/10 transition-colors">
+                  <i data-lucide="layout" class="w-7 h-7"></i>
+               </div>
+               <span class="text-sm font-medium text-slate-400 group-hover:text-white">Python</span>
+            </div>
+            <div class="bg-dark-800/50 border border-white/5 p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-primary-500/30 transition-all group">
+               <div class="p-3 bg-white/5 rounded-lg text-slate-300 group-hover:text-primary-400 group-hover:bg-primary-500/10 transition-colors">
+                  <i data-lucide="code-2" class="w-7 h-7"></i>
+               </div>
+               <span class="text-sm font-medium text-slate-400 group-hover:text-white">React</span>
+            </div>
+            <div class="bg-dark-800/50 border border-white/5 p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-primary-500/30 transition-all group">
+               <div class="p-3 bg-white/5 rounded-lg text-slate-300 group-hover:text-primary-400 group-hover:bg-primary-500/10 transition-colors">
+                  <i data-lucide="globe" class="w-7 h-7"></i>
+               </div>
+               <span class="text-sm font-medium text-slate-400 group-hover:text-white">HTML/CSS</span>
+            </div>
+            <div class="bg-dark-800/50 border border-white/5 p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-primary-500/30 transition-all group">
+               <div class="p-3 bg-white/5 rounded-lg text-slate-300 group-hover:text-primary-400 group-hover:bg-primary-500/10 transition-colors">
+                  <i data-lucide="server" class="w-7 h-7"></i>
+               </div>
+               <span class="text-sm font-medium text-slate-400 group-hover:text-white">JavaScript</span>
+            </div>
+            <div class="bg-dark-800/50 border border-white/5 p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-primary-500/30 transition-all group">
+               <div class="p-3 bg-white/5 rounded-lg text-slate-300 group-hover:text-primary-400 group-hover:bg-primary-500/10 transition-colors">
+                  <i data-lucide="database" class="w-7 h-7"></i>
+               </div>
+               <span class="text-sm font-medium text-slate-400 group-hover:text-white">MongoDB</span>
+            </div>
+            <div class="bg-dark-800/50 border border-white/5 p-4 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-white/5 hover:border-primary-500/30 transition-all group">
+               <div class="p-3 bg-white/5 rounded-lg text-slate-300 group-hover:text-primary-400 group-hover:bg-primary-500/10 transition-colors">
+                  <i data-lucide="cloud" class="w-7 h-7"></i>
+               </div>
+               <span class="text-sm font-medium text-slate-400 group-hover:text-white">Git/GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-dark-950 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-900/20 rounded-full blur-[100px] -z-10"></div>
+
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+          <h2 class="text-3xl md:text-5xl font-display font-bold mb-4">Featured Projects</h2>
+          <p class="text-slate-400 max-w-2xl mx-auto">
+            A selection of projects that demonstrate my ability to solve complex problems and deliver high-quality products.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-12">
+          <!-- Project 1 -->
+          <div class="group relative bg-dark-900 border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-colors duration-500 reveal">
+            <div class="grid md:grid-cols-2">
+              <div class="relative overflow-hidden h-64 md:h-full min-h-[300px]">
+                <img src=Assests/images/1.png alt="Project 1" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+              </div>
+              <div class="p-8 md:p-12 flex flex-col justify-center">
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">Python</span>
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">React</span>
+                </div>
+                <h3 class="text-2xl md:text-3xl font-display font-bold mb-4 group-hover:text-primary-400 transition-colors">AI-Powered Intelligent Document Analysis System</h3>
+                <p class="text-slate-400 mb-8 leading-relaxed">This project focuses on analyzing document data using Python to extract meaningful insights. It includes sentiment analysis and similarity scoring to understand and compare textual content, along with sensitive data detection to identify confidential information. AI is used to generate relevant questions and summaries, improving overall document understanding and insight generation.</p>
+                <div class="flex items-center gap-4 pt-4 border-t border-white/5 mt-auto">
+                  <a href="#" class="flex items-center gap-2 text-white font-medium hover:text-primary-400 transition-colors">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Live Demo
+                  </a>
+                  <a href="https://github.com/abhikarode221" class="flex items-center gap-2 text-slate-400 font-medium hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-4 h-4"></i> Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="group relative bg-dark-900 border border-white/5 rounded-3xl overflow-hidden hover:border-white/10 transition-colors duration-500 reveal">
+            <div class="grid md:grid-cols-2">
+              <div class="relative overflow-hidden h-64 md:h-full min-h-[300px]">
+                <img src=Assests/images/2.png alt="Project 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+              </div>
+              <div class="p-8 md:p-12 flex flex-col justify-center">
+                 <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">React</span>
+                  <span class="text-xs font-semibold px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 border border-primary-500/20">tailwindcss</span>
+                </div>
+                <h3 class="text-2xl md:text-3xl font-display font-bold mb-4 group-hover:text-primary-400 transition-colors">Resume Builder</h3>
+                <p class="text-slate-400 mb-8 leading-relaxed">An interactive resume creation tool that helps users design structured resumes through reusable components and real-time updates, focusing on clean UI and usability.</p>
+                <div class="flex items-center gap-4 pt-4 border-t border-white/5 mt-auto">
+                  <a href="#" class="flex items-center gap-2 text-white font-medium hover:text-primary-400 transition-colors">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Live Demo
+                  </a>
+                  <a href="https://github.com/abhikarode221" class="flex items-center gap-2 text-slate-400 font-medium hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-4 h-4"></i> Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 bg-dark-900">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-display font-bold mb-16 text-center reveal">Education</h2>
+            
+            <div class="relative">
+                <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary-500/50 to-transparent"></div>
+
+                <!-- Exp 1 -->
+                <div class="relative flex flex-col md:flex-row gap-8 md:flex-row-reverse mb-12 reveal">
+                    <div class="absolute left-[-4px] md:left-1/2 md:-translate-x-[5px] top-0 w-2.5 h-2.5 rounded-full bg-primary-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] z-10"></div>
+                    <div class="md:w-1/2 pl-8 md:pl-0 md:px-8">
+                        <div class="p-6 bg-dark-800/40 border border-white/5 rounded-2xl hover:bg-white/5 transition-colors md:text-left">
+                            <span class="inline-block px-3 py-1 mb-2 text-xs font-semibold tracking-wider text-primary-300 uppercase bg-primary-500/10 rounded-full">2024 - Present</span>
+                            <h3 class="text-xl font-bold text-white mb-1">MCA</h3>
+                            <p class="text-primary-400 font-medium mb-3">Dr. D. Y. Patil Institute of Management and Entrepreneur Development</p>
+                            <p class="text-slate-400 text-sm leading-relaxed">Currently pursuing an MCA, focused on building practical skills in programming, data analysis, and application development through academic and project-based learning.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 hidden md:block"></div>
+                </div>
+
+                <!-- Exp 2 -->
+                <div class="relative flex flex-col md:flex-row gap-8 mb-12 reveal">
+                    <div class="absolute left-[-4px] md:left-1/2 md:-translate-x-[5px] top-0 w-2.5 h-2.5 rounded-full bg-primary-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] z-10"></div>
+                    <div class="md:w-1/2 pl-8 md:pl-0 md:px-8">
+                        <div class="p-6 bg-dark-800/40 border border-white/5 rounded-2xl hover:bg-white/5 transition-colors md:text-right">
+                            <span class="inline-block px-3 py-1 mb-2 text-xs font-semibold tracking-wider text-primary-300 uppercase bg-primary-500/10 rounded-full">2020 - 2023</span>
+                            <h3 class="text-xl font-bold text-white mb-1">BSc Computer Science</h3>
+                            <p class="text-primary-400 font-medium mb-3">Shri Pundlik Maharaj Mahavidyalaya Nandura</p>
+                            <p class="text-slate-400 text-sm leading-relaxed">Completed B.Sc. in Computer Science with a CGPA of 8.1, gaining solid knowledge of programming, database systems, and problem-solving through academic coursework and practical projects.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 hidden md:block"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-dark-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Let's work together</h2>
+                    <p class="text-slate-400 text-lg mb-8 max-w-md">Have a project in mind? I'm always open to discussing new opportunities and ideas.</p>
+                    
+                    <div class="flex gap-4 mb-12">
+                        <a href="https://github.com/abhikarode221" class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-primary-600 transition-colors">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/abhishek-karode-83b200332/" class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-primary-600 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-primary-600 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-dark-900 p-8 rounded-3xl border border-white/5 shadow-2xl reveal" style="transition-delay: 0.2s">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-300">Name</label>
+                                <input type="text" class="w-full px-4 py-3 rounded-xl bg-dark-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-primary-500 transition-colors" placeholder="Name">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-slate-300">Email</label>
+                                <input type="email" class="w-full px-4 py-3 rounded-xl bg-dark-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-primary-500 transition-colors" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-slate-300">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-xl bg-dark-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-primary-500 transition-colors" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button class="w-full py-4 rounded-xl bg-gradient-to-r from-primary-600 to-primary-500 text-white font-bold text-lg hover:from-primary-500 hover:to-primary-400 transform hover:-translate-y-0.5 transition-all shadow-lg flex items-center justify-center gap-2">
+                            Send Message <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 border-t border-white/5 py-12">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <span class="font-display font-bold text-xl text-white">Abhishek Karode<span class="text-primary-500">.</span></span>
+                <p class="text-slate-500 text-sm mt-2">© 2026 All rights reserved.</p>
+            </div>
+            <div class="flex gap-6 text-sm font-medium text-slate-400">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Initialize Lucide Icons
+      lucide.createIcons();
+
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Navbar Scroll Effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add('glass', 'border-b', 'border-white/5');
+          navbar.classList.remove('py-4');
+          navbar.classList.add('py-2');
+        } else {
+          navbar.classList.remove('glass', 'border-b', 'border-white/5');
+          navbar.classList.remove('py-2');
+          navbar.classList.add('py-4');
+        }
+      });
+
+      // Scroll Reveal Animation
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+  </body>
+</html>
